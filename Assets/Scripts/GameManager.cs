@@ -83,6 +83,11 @@ public class GameManager : MonoBehaviour {
 		gameStarted = false;
 
 		continueText.text = "PRESS ANY BUTTON TO RESTART";
+
+		if (timeElapsed > bestTime) {
+			bestTime = timeElapsed;
+			PlayerPrefs.SetFloat ("BestTime", bestTime);
+		}
 	}
 
 	void ResetGame() {
