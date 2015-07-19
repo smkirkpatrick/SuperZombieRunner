@@ -32,9 +32,23 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+	void OnPlayerKilled() {
+		spawner.active = false;
+		
+		var playerDestroyScript = player.GetComponent<DestroyOffscreen> ();
+		playerDestroyScript.DestroyCallback -= OnPlayerKilled; 
+		// ^ Be sure to remove the delegate reference or the garbage collector can't
+		//   clean up the object because of the outstanding reference.
+
+		player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+	}
+
 	void ResetGame() {
 		spawner.active = true;
 
 		player = GameObjectUtil.Instantiate (playerPrefab, new Vector3 (0, (Screen.height / PixelPerfectCamera.pixelsToUnits) / 2, 0));
+
+		var playerDestroyScript = player.GetComponent<DestroyOffscreen> ();
+		playerDestroyScript.DestroyCallback += OnPlayerKilled;
 	}
 }
