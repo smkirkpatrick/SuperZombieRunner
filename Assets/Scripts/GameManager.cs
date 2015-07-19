@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
 	public Text continueText;
+	public Text scoreText;
+
+	private float timeElapsed = 0f;
+	private float bestTime = 0f;
 
 	private float blinkTime = 0f;
 	private bool blink;
@@ -54,7 +58,12 @@ public class GameManager : MonoBehaviour {
 				blink = !blink;
 			}
 
-			continueText.canvasRenderer.SetAlpha(blink ? 0 : 1);
+			continueText.canvasRenderer.SetAlpha (blink ? 0 : 1);
+
+			scoreText.text = "TIME: " + FormatTime (timeElapsed) + "\nBEST: " + FormatTime (bestTime);
+		} else {
+			timeElapsed += Time.deltaTime;
+			scoreText.text = "TIME: " + FormatTime (timeElapsed);
 		}
 	}
 
@@ -87,5 +96,11 @@ public class GameManager : MonoBehaviour {
 
 		continueText.canvasRenderer.SetAlpha(0);
 		// Hide the text when the game starts
+
+		timeElapsed = 0;
+	}
+
+	string FormatTime(float value) {
+		return value.ToString ();
 	}
 }
