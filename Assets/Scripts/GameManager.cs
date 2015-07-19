@@ -3,8 +3,11 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public GameObject floor;
-	public Spawner spawner;
+	public GameObject playerPrefab;
+
+	private GameObject player;
+	private GameObject floor;
+	private Spawner spawner;
 
 	void Awake() {
 		floor = GameObject.Find ("Foreground");
@@ -20,10 +23,18 @@ public class GameManager : MonoBehaviour {
 		floor.transform.position = pos;
 
 		spawner.active = false;
+
+		ResetGame ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void ResetGame() {
+		spawner.active = true;
+
+		player = GameObjectUtil.Instantiate (playerPrefab, new Vector3 (0, (Screen.height / PixelPerfectCamera.pixelsToUnits) / 2, 0));
 	}
 }
