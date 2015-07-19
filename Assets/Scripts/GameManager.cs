@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public Text continueText;
 
 	private float blinkTime = 0f;
-	private float blink;
+	private bool blink;
 	private bool gameStarted;
 	private TimeManager timeManager;
 	private GameObject player;
@@ -44,6 +44,18 @@ public class GameManager : MonoBehaviour {
 				ResetGame ();
 			}
 		}
+
+		if (!gameStarted) {
+			blinkTime++;
+			// ^ Because the timeScale is 0 when we're not running, we have
+			//   to manually increment time ourselves frame by frame.
+
+			if (blinkTime % 40 == 0) {
+				blink = !blink;
+			}
+
+			continueText.canvasRenderer.SetAlpha(blink ? 0 : 1);
+		}
 	}
 
 	void OnPlayerKilled() {
@@ -59,6 +71,8 @@ public class GameManager : MonoBehaviour {
 		timeManager.ManipulateTime (0, 5.5f);
 
 		gameStarted = false;
+
+		continueText.text = "PRESS ANY BUTTON TO RESTART";
 	}
 
 	void ResetGame() {
@@ -70,5 +84,8 @@ public class GameManager : MonoBehaviour {
 		playerDestroyScript.DestroyCallback += OnPlayerKilled;
 
 		gameStarted = true;
+
+		continueText.canvasRenderer.SetAlpha(0);
+		// Hide the text when the game starts
 	}
 }
