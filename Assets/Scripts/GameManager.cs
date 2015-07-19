@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	public GameObject playerPrefab;
+	public Text continueText;
 
+	private float blinkTime = 0f;
+	private float blink;
 	private bool gameStarted;
 	private TimeManager timeManager;
 	private GameObject player;
