@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 0; // Tells the game to wait for a button press to start
 
 		continueText.text = "PRESS ANY BUTTON TO START";
+
+		bestTime = PlayerPrefs.GetFloat ("BestTime");
 	}
 	
 	// Update is called once per frame
