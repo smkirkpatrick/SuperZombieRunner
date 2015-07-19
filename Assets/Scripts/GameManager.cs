@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour {
 		spawner.active = false;
 
 		Time.timeScale = 0; // Tells the game to wait for a button press to start
+
+		continueText.text = "PRESS ANY BUTTON TO START";
 	}
 	
 	// Update is called once per frame
