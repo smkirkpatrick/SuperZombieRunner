@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	string FormatTime(float value) {
-		return value.ToString ();
+		TimeSpan t = TimeSpan.FromSeconds (value);
+		return string.Format ("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
 	}
 }
